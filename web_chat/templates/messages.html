@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>История сообщений</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+
+            <table>
+            <tr><td>Ваше имя: {{current_user}}</td></tr>
+                <tr><td>Ваш собеседник: {{user}}</td></tr>
+                <tr><td><a href="{{url_for('get_message_history', username=user)}}">Обновить</a></td></tr>
+                <tr><td><a href="/contacts">Назад</a></td></tr>
+                <tr><td><a href="/log-out">Выйти</a></td></tr>
+            </table>
+
+        </td>
+        <td>
+            <p>История сообщений:</p><br>
+            <textarea readonly cols="100" rows = 20>{{ messages }}</textarea>
+        </td>
+    </tr>
+    <form method="post">
+    <tr><td><input type = text name="message" placeholder="Введите ваше сообщение" size="50"></td></tr>
+        <tr><td> <input type="submit" value="Отправить"></td></tr>
+    </form>
+</table>
+</body>
+</html>

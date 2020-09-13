@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<br>
+<h1>Вход</h1><br>
+<table>
+{% with messages = get_flashed_messages() %}
+
+{% for message in messages %}
+    <tr><td>{{ message }}</td></tr>
+    {% endfor %}
+{% endwith %}
+</table>
+
+<form method="post">
+<table>
+    <tr>
+        <td>Введите логин</td>
+    </tr>
+    <tr>
+        <td><input type="text" name="nickname"></td>
+    </tr>
+    <tr>
+        <td>Введите пароль</td>
+    </tr>
+    <tr>
+        <td><input type="password" name="pass"></td>
+    </tr>
+    <tr>
+       <td> <a href="/log-in">Зарегестрироваться</a></td>
+       <td> <input type="submit" name="submit" value="Войти"></td>
+    </tr>
+</table>
+</form>
+
+</body>
+</html>

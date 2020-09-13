@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h1>Регистрация</h1><br>
+<table>
+{% with messages = get_flashed_messages() %}
+
+{% for message in messages %}
+    <tr><td> {{ message }} </td></tr>
+    {% endfor %}
+{% endwith %}
+</table>
+
+<form method="post">
+    <table>
+        <tr><td>Введите логин</td></tr>
+        <tr><td><input type = 'text' name = 'nickname'></td></tr>
+        <tr><td>Введите пароль</td></tr>
+        <tr><td><input type="password" name="pass"></td></tr>
+        <tr><td>Подтвердите пароль</td></tr>
+        <tr><td><input type="password" name="pass_confirm"></td></tr>
+        <tr><td><input type="Submit" value="Зарегестрироваться"></td>
+        <td><a href="/sing-in">Назад</a> </td></tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Контакты</title>
+</head>
+<body>
+<br>
+<div>
+<p>Ваше имя: {{ nickname }}</p><br>
+    <a href="/log-out"> Выйти</a><br>
+<h3>Список контактов:</h3>
+</div>
+<table>
+    {%for contact in contacts %}
+    <tr><td><a href="{{url_for('get_message_history', username=contact)}}"> {{ contact }}</a></td></tr>
+    {% endfor %}
+</table>
+</body>
+</html>
