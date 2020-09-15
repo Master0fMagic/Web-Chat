@@ -3,30 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>История сообщений</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        p{font-size:14pt; font-family: 'Bookman Old Style'}
+    </style>
 </head>
 <body>
-<table>
-    <tr>
-        <td>
-
-            <table>
-            <tr><td>Ваше имя: {{current_user}}</td></tr>
-                <tr><td>Ваш собеседник: {{user}}</td></tr>
-                <tr><td><a href="{{url_for('get_message_history', username=user)}}">Обновить</a></td></tr>
-                <tr><td><a href="/contacts">Назад</a></td></tr>
-                <tr><td><a href="/log-out">Выйти</a></td></tr>
-            </table>
-
-        </td>
-        <td>
+     <nav class="navbar navbar-dafault">
+         <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand"> Чат</a>
+            </div>
+            <div>
+                <a href="/contacts" class="btn btn-link">Назад</a>
+                <a href="{{url_for('get_message_history', username=user)}}" class="btn btn-primary">Обновить</a>
+                <a href="/log-out" class="btn btn-danger">Выйти</a>
+            </div>
+         </div>
+     </nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+            <p style="font-size:14pt; font-family: 'Bookman Old Style'">Ваше имя:  <mark>{{current_user}}</mark></p>
+            <p>Ваш собеседник:  <mark>{{user}}</mark></p>
+            <div>
+            <form method="post" class="form-horizontal">
+                <div class="form-group">
+                    <input class="form-control" type = text name="message" placeholder="Введите ваше сообщение" style="width: 100%" >
+                    <input class="form-control btn btn-primary" type="submit" value="Отправить">
+                </div>
+            </form>
+            </div>
+        </div>
+        <div class="col-md-8 col-lg-8 col-sm-10 col-xs-12" >
             <p>История сообщений:</p><br>
-            <textarea readonly cols="100" rows = 20>{{ messages }}</textarea>
-        </td>
-    </tr>
-    <form method="post">
-    <tr><td><input type = text name="message" placeholder="Введите ваше сообщение" size="50"></td></tr>
-        <tr><td> <input type="submit" value="Отправить"></td></tr>
-    </form>
-</table>
+            <textarea readonly style="width: 100%" rows="20">{{ messages }}</textarea>
+        </div>
+    </div>
+</div>
 </body>
 </html>

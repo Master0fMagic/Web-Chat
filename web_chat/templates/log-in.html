@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 </head>
 <body>
-<h1>Регистрация</h1><br>
+<h1 style="margin-top: 5%; margin-left: 5%">Регистрация</h1><br>
 <table>
 {% with messages = get_flashed_messages() %}
 
@@ -15,17 +17,27 @@
 {% endwith %}
 </table>
 
-<form method="post">
-    <table>
-        <tr><td>Введите логин</td></tr>
-        <tr><td><input type = 'text' name = 'nickname'></td></tr>
-        <tr><td>Введите пароль</td></tr>
-        <tr><td><input type="password" name="pass"></td></tr>
-        <tr><td>Подтвердите пароль</td></tr>
-        <tr><td><input type="password" name="pass_confirm"></td></tr>
-        <tr><td><input type="Submit" value="Зарегестрироваться"></td>
-        <td><a href="/sing-in">Назад</a> </td></tr>
-    </table>
-</form>
+<div class="container">
+    <form method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="nickname" class="control-label"> Введите логин </label>
+            <div>
+                <input type = 'text' name = 'nickname'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">Введите пароль</label>
+            <div><input type="password" name="pass"></div>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password" class="label-control">Подтвердите пароль</label>
+            <div><input type="password" name="pass_confirm"></div>
+        </div>
+        <div class="form-group">
+            <a href="/sing-in" class="btn btn-link">Назад</a>
+            <input type="Submit" class="btn btn-success" value="Зарегестрироваться">
+        </div>
+    </form>
+</div>
 </body>
 </html>

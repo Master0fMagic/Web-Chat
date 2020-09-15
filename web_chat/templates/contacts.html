@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Контакты</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
-<body>
-<br>
-<div>
-<p>Ваше имя: {{ nickname }}</p><br>
-    <a href="/log-out"> Выйти</a><br>
-<h3>Список контактов:</h3>
+<div class="container" style="margin-left: 5%">
+    <h1>Ваша страница</h1>
+    <br>
+    <p style="font-size: 14pt">Ваше имя: <mark> {{ nickname }} </mark></p>
+    <h3>Список контактов:</h3>
+    <dl>
+        {%for contact in contacts %}
+        <li><a class="btn btn-link" role="button" href="{{url_for('get_message_history', username=contact)}}"> {{ contact }}</a></li>
+        {% endfor %}
+    </dl>
+    <br>
+     <a href="/log-out" class="btn btn-danger"> Выйти</a>
 </div>
-<table>
-    {%for contact in contacts %}
-    <tr><td><a href="{{url_for('get_message_history', username=contact)}}"> {{ contact }}</a></td></tr>
-    {% endfor %}
-</table>
 </body>
 </html>
