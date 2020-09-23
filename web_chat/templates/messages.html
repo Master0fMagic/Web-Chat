@@ -9,6 +9,11 @@
     </style>
 </head>
 <body>
+    <script defer src= "../js/checkNewMessages.js"></script>
+    <div style="display: none;" id="name1">{{current_user}}</div>
+    <div style="display: none;" id="name2">{{user}}</div>
+    <div style="display: none;" id="lastMessage">{{last_message_time}}</div>
+
      <nav class="navbar navbar-dafault">
          <div class="container-fluid">
             <div class="navbar-header">
@@ -37,9 +42,13 @@
         </div>
         <div class="col-md-8 col-lg-8 col-sm-10 col-xs-12" >
             <p>История сообщений:</p><br>
-            <textarea readonly style="width: 100%" rows="20">{{ messages }}</textarea>
+            <textarea id="textarea" readonly style="width: 100%" rows="20" >{{ messages }}</textarea>
         </div>
     </div>
 </div>
+<script >
+        let element = document.getElementById('textarea');
+    element.scrollTop = element.clientHeight;
+    </script>
 </body>
 </html>

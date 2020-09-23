@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, flash, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, login_required, logout_user
 from datetime import datetime
+import os
 
 from web_chat import app, db
 from web_chat.models import  Message, User
@@ -102,12 +103,34 @@ def get_message_history(username):
     user = User.query.filter_by(id=session['_user_id']).first()
     if request.method == 'GET':
         messages=Message.get_messages(user.nickname, username)
-        return render_template('messages.html', messages=''.join(message.to_string()+'\n' for message in messages), current_user=user.nickname, user=username)
+        return render_template('messages.html', messages=''.join(message.to_string()+'\n' for message in messages), current_user=user.nickname, user=username, last_message_time = messages[-1].sent_time)
     if request.form.get('message'):
         mes=Message(text=request.form.get('message'), from_nick=user.nickname, to_nick=username, sent_time=datetime.now().timestamp())
         db.session.add(mes)
         db.session.commit()
     return redirect(url_for('get_message_history', username=username))
+
+
+@app.route('/message-history/update', methods = ['POST'])
+@login_required
+def update_history():
+    '''Return new messages. 
+    Request: {'nickname1': 'Nickname', 'nickname2':'Nickname', 'lastMessage':timestampTime}
+    Response: {'status':"Found new messages", 'messages': messages_string, lastMessageTime:timestamp_time} if there are any new message
+    or {'status': "No new messages"} if not'''
+    data = request.get_json()
+    messages = Message.get_new_messages(data["fromUser"], data["toUser"], data["lastMessage"])
+    if messages == []:
+        return {'status': "No new messages"}
+    return {'status':"Found new messages", 'messages':''.join(message.to_string() + '\n' for message in messages) , 'lastMessageTime':messages[-1].sent_time}
+
+
+@app.route('/js/checkNewMessages.js')
+@login_required
+def get_checkNewMessages_file():
+    print(os.getcwd())
+    return  open(os.path.abspath('web_chat/js/checkNewMessages.js')).read()
+
 
 @app.after_request
 def redirect_to_sing_in(response):

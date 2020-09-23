@@ -39,6 +39,7 @@ class Message(db.Model):
         '''Return massage in string format'''
         return f'{self.from_nick} to {self.to_nick} {datetime.fromtimestamp(self.sent_time).strftime("%d.%m.%Y at %H:%M:%S")}: {self.text}'
 
+    @staticmethod
     def get_messages(nickname1, nickname2):
         '''Return list of Messages, that 2 users have'''
         messages = []
@@ -48,6 +49,28 @@ class Message(db.Model):
             flag=True
             while flag:
                 flag=False
+                for i in range(len(messages)-1):
+                    if messages[i].sent_time > messages[i+1].sent_time:
+                        messages[i],messages[i+1]=messages[i+1],messages[i]
+                        flag=True
+        finally:
+            return messages
+
+    @staticmethod
+    def get_new_messages(nickname1, nickname2, last_message_time):
+        ''' Return list of new Messages, that 2 users have'''
+        messages = []
+        try:
+            messages+=Message.query.filter_by(from_nick=nickname1, to_nick=nickname2 ).all()
+            messages+=Message.query.filter_by( from_nick=nickname2, to_nick=nickname1).all()
+            flag=True
+            while flag:
+                flag=False
+                for i in range(len(messages)):
+                    if messages[i].sent_time <= float(last_message_time):
+                        messages.remove(messages[i])
+                        flag = True
+                        break
                 for i in range(len(messages)-1):
                     if messages[i].sent_time > messages[i+1].sent_time:
                         messages[i],messages[i+1]=messages[i+1],messages[i]
